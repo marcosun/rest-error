@@ -2,7 +2,7 @@
   "name": "rest-error-handler",
   "version": "0.0.1",
   "description": "Restful api error handler",
-  "main": "lib/index.js",
+  "main": "index.js",
   "scripts": {
     "build:dev": "webpack --config ./config/webpack.dev.js",
     "build:prod": "webpack --config ./config/webpack.prod.js",
@@ -31,5 +31,9 @@
     "webpack": "^3.10.0",
     "webpack-bundle-analyzer": "^2.10.0",
     "webpack-merge": "^4.1.1"
-  }
+  },
+  "files": [
+    "index.js",
+    "umd"
+  ]
 }
