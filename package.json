@@ -1,7 +1,7 @@
 {
-  "name": "js-component-seed",
+  "name": "rest-error-handler",
   "version": "0.0.1",
-  "description": "A seed for writing javascript component",
+  "description": "Restful api error handler",
   "main": "lib/index.js",
   "scripts": {
     "build:dev": "webpack --config ./config/webpack.dev.js",
@@ -11,7 +11,7 @@
     "test:watch": "npm test -- --watch",
     "doc": "jsdoc src -r"
   },
-  "repository": "git@github.com:marcosun/smooth-fetch.git",
+  "repository": "git@github.com:marcosun/rest-error-handler.git",
   "author": "marcosun <marcoinbristol@gmail.com>",
   "license": "MIT",
   "devDependencies": {

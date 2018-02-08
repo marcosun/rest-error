@@ -8,9 +8,9 @@ module.exports = {
   ],
 
   output: {
-    filename: 'smooth-fetch.js',
+    filename: 'rest-error-handler.js',
     path: paths.appDist,
-    library: 'fetch',
+    library: 'restErrorHandler',
     libraryTarget: 'umd',
   },
 
