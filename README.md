@@ -19,13 +19,13 @@ npm install --save rest-error-handler
 ```javascript
 // index.js
 import express from 'express';
-import {restErrorHandler} from 'rest-error-handler';
+import restErrorHandler from 'rest-error-handler';
 
 import login from './login.js';
 
 const app = express();
 app.get('/login', login);
-app.use(restErrorHandler);
+app.use(restErrorHandler());
 ```
 
 ### Step Two: Call next with REST_ERROR_HANDLER object
