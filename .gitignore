@@ -60,3 +60,4 @@ typings/
 # Release path
 umd
 es
+/*.js

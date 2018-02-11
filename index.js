@@ -1,1 +1,0 @@
-module.exports=require('./umd/rest-error-handler.js')
