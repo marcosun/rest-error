@@ -5,8 +5,7 @@
   "main": "index.js",
   "module": "es/index.js",
   "scripts": {
-    "build:dev": "webpack --config ./config/webpack.dev.js",
-    "build:prod": "webpack --config ./config/webpack.prod.js",
+    "build": "node ./config/build.js",
     "analyse": "webpack --config ./config/webpack.analyse.js",
     "test": "jest",
     "test:watch": "npm test -- --watch",
@@ -35,7 +34,6 @@
   },
   "files": [
     "index.js",
-    "restErrorHandler",
     "umd",
     "es"
   ]
