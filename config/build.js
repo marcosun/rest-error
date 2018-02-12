@@ -10,17 +10,12 @@ console.log('Building CommonJS modules ...');
 
 exec('babel lib -d . --ignore test.js', {
   BABEL_ENV: 'cjs',
+  NODE_ENV: 'production',
 });
 
 console.log('\nBuilding ES modules ...');
 
 exec('babel lib -d es --ignore test.js', {
   BABEL_ENV: 'es',
-});
-
-console.log('\nBuilding rest-error-handler.js ...');
-
-exec('webpack --config ./config/webpack.prod.js', {
-  BABEL_ENV: 'umd',
   NODE_ENV: 'production',
-})
+});

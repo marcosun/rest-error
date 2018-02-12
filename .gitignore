@@ -58,6 +58,5 @@ typings/
 .env
 
 # Release path
-umd
 es
 /*.js
