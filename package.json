@@ -1,6 +1,6 @@
 {
   "name": "rest-error-handler",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Restful api error handler",
   "main": "index.js",
   "scripts": {
