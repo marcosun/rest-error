@@ -1,3 +1,5 @@
+import isNoid from './utils/isNoid';
+
 /**
  * Return rest error handler factory.
  * The factory returns a function accepts four arguments.
@@ -16,12 +18,33 @@ export default function restErrorHandlerFactory() {
       return next(err);
     }
 
+    /**
+     * Initialise payload to an empty object so that properties such that reading field and message
+     * properties from payload won't throw error.
+     */
+    if (err.payload !== Object(err.payload)) {
+      err.payload = {};
+    }
+
     switch (err.status) {
       /**
        * HTTP Status Code 400 Bad Request. 类型400: 请求参数错误
        */
       case 400: {
-        const { field } = err.payload;
+        const {
+          /**
+           * Define which field is invalid.
+           */
+          field,
+          /**
+           * Override details.message.
+           */
+          fieldMessage,
+          /**
+           * Override error message.
+           */
+          message,
+        } = err.payload;
 
         return res.status(400).json({
           /**
@@ -35,7 +58,7 @@ export default function restErrorHandlerFactory() {
           /**
            * Human readable error message. 人类可读报错信息
            */
-          message: 'Invalid request parameter.',
+          message: isNoid(message) ? 'Invalid request parameter.' : message,
           /**
            * Error detail. 详细报错信息
            */
@@ -47,14 +70,21 @@ export default function restErrorHandlerFactory() {
             /**
              * Detailed error message relative to this field. 该字段人类可读报错信息
              */
-            message: `${field} is invalid`,
+            message: isNoid(fieldMessage) ? `${field} is invalid` : fieldMessage,
           }],
         });
       }
       /**
        * HTTP Status Code 401 Unauthorized. 类型401: 未经授权(未登录)
        */
-      case 401:
+      case 401: {
+        const {
+          /**
+           * Override error message.
+           */
+          message,
+        } = err.payload;
+
         return res.status(401).json({
           /**
            * The same as HTTP Status Code. 同HTTP Status Code
@@ -67,12 +97,20 @@ export default function restErrorHandlerFactory() {
           /**
            * Human readable error message. 人类可读报错信息
            */
-          message: 'Invalid credentials',
+          message: isNoid(message) ? 'Invalid credentials' : message,
         });
+      }
       /**
        * HTTP Status Code 403 Forbidden. 类型403: 权限不足
        */
-      case 403:
+      case 403: {
+        const {
+          /**
+           * Override error message.
+           */
+          message,
+        } = err.payload;
+
         return res.status(403).json({
           /**
            * The same as HTTP Status Code. 同HTTP Status Code
@@ -85,8 +123,9 @@ export default function restErrorHandlerFactory() {
           /**
            * Human readable error message. 人类可读报错信息
            */
-          message: 'Insufficient authority',
+          message: isNoid(message) ? 'Insufficient authority' : message,
         });
+      }
       /**
        * Customised HTTP Status Code 520 Datacenter Error. 类型520: 数据中心崩溃
        * This will deperecate soon.
