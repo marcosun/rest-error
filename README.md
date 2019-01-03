@@ -28,37 +28,28 @@ app.get('/login', login);
 app.use(restErrorHandler());
 ```
 
-### Step Two: Call next with REST_ERROR_HANDLER object
+### Step Two: Create an error instance with status code and payload
 
 ```javascript
 // login.js
-import {
-    BAD_REQUEST,
-    UNAUTHORIZED,
-} from 'rest-error-handler';
-
 export default function(req, res, next) {
     const {
         username,
     } = req.query;
     
     if (username === void 0) {
-        return next({
-            REST_ERROR_HANDLER: {
-                type: BAD_REQUEST, // HTTP status 400
-                payload: {
-                    field: 'username', // Declare which field is required
-                },
-            },
-        });
+        const err = new Error('Bad Request');
+        err.status = 400; // HTTP status code 400
+        err.payload = {
+            field: 'username', // Declare which field is required
+        };
+        return next(err);
     }
     
     if (username !== 'correct name') {
-        return next({
-            REST_ERROR_HANDLER: {
-                type: UNAUTHORIZED, // HTTP status 401
-            },
-        });
+        const err = new Error();
+        err.status = 401; // HTTP status code 401
+        return next(err);
     }
     
     res.send('you are logged in');
