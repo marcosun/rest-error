@@ -70,9 +70,23 @@ export default function restErrorHandlerFactory() {
           message: 'Invalid credentials',
         });
       /**
-       * HTTP Status Code 403 Forbidden. 类型403: 未经授权(权限不够,账户名密码错误,不应当重复尝试)
+       * HTTP Status Code 403 Forbidden. 类型403: 权限不足
        */
-      // case 403:
+      case 403:
+        return res.status(403).json({
+          /**
+           * The same as HTTP Status Code. 同HTTP Status Code
+           */
+          code: 403,
+          /**
+           * The same as HTTP Status Message. 同HTTP Status Message
+           */
+          status: 'Forbidden',
+          /**
+           * Human readable error message. 人类可读报错信息
+           */
+          message: 'Insufficient authority',
+        });
       /**
        * Customised HTTP Status Code 520 Datacenter Error. 类型520: 数据中心崩溃
        * This will deperecate soon.
