@@ -178,17 +178,6 @@ export default function restErrorHandlerFactory() {
           message: isNoid(message) ? 'Internal Server Error' : message,
         });
       }
-      /**
-       * Customised HTTP Status Code 520 Datacenter Error. 类型520: 数据中心崩溃
-       * This will deperecate soon.
-       */
-      case 520:
-        res.statusMessage = 'Datacenter Error';
-        return res.status(520).json({
-          code: 520,
-          status: 'Datacenter Error',
-          message: 'Datacenter is not responding as expected',
-        });
       default:
         return next(err);
     }
