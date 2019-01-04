@@ -44,6 +44,10 @@ export default function restErrorHandlerFactory() {
            * Override error message.
            */
           message,
+          /**
+           * Override status message.
+           */
+          statusMessage,
         } = err.payload;
 
         return res.status(400).json({
@@ -54,7 +58,7 @@ export default function restErrorHandlerFactory() {
           /**
            * The same as HTTP Status Message. 同HTTP Status Message
            */
-          status: 'Bad Request',
+          status: isNoid(statusMessage) ? 'Bad Request' : statusMessage,
           /**
            * Human readable error message. 人类可读报错信息
            */
@@ -83,6 +87,10 @@ export default function restErrorHandlerFactory() {
            * Override error message.
            */
           message,
+          /**
+           * Override status message.
+           */
+          statusMessage,
         } = err.payload;
 
         return res.status(401).json({
@@ -93,7 +101,7 @@ export default function restErrorHandlerFactory() {
           /**
            * The same as HTTP Status Message. 同HTTP Status Message
            */
-          status: 'Unauthorized',
+          status: isNoid(statusMessage) ? 'Unauthorized' : statusMessage,
           /**
            * Human readable error message. 人类可读报错信息
            */
@@ -109,6 +117,10 @@ export default function restErrorHandlerFactory() {
            * Override error message.
            */
           message,
+          /**
+           * Override status message.
+           */
+          statusMessage,
         } = err.payload;
 
         return res.status(403).json({
@@ -119,7 +131,7 @@ export default function restErrorHandlerFactory() {
           /**
            * The same as HTTP Status Message. 同HTTP Status Message
            */
-          status: 'Forbidden',
+          status: isNoid(statusMessage) ? 'Forbidden' : statusMessage,
           /**
            * Human readable error message. 人类可读报错信息
            */
@@ -135,6 +147,10 @@ export default function restErrorHandlerFactory() {
            * Override error message.
            */
           message,
+          /**
+           * Override status message.
+           */
+          statusMessage,
         } = err.payload;
 
         return res.status(404).json({
@@ -145,7 +161,7 @@ export default function restErrorHandlerFactory() {
           /**
            * The same as HTTP Status Message. 同HTTP Status Message
            */
-          status: 'Not Found',
+          status: isNoid(statusMessage) ? 'Not Found' : statusMessage,
           /**
            * Human readable error message. 人类可读报错信息
            */
@@ -161,6 +177,10 @@ export default function restErrorHandlerFactory() {
            * Override error message.
            */
           message,
+          /**
+           * Override status message.
+           */
+          statusMessage,
         } = err.payload;
 
         return res.status(500).json({
@@ -171,7 +191,7 @@ export default function restErrorHandlerFactory() {
           /**
            * The same as HTTP Status Message. 同HTTP Status Message
            */
-          status: 'Internal Server Error',
+          status: isNoid(statusMessage) ? 'Internal Server Error' : statusMessage,
           /**
            * Human readable error message. 人类可读报错信息
            */
@@ -187,6 +207,10 @@ export default function restErrorHandlerFactory() {
            * Override error message.
            */
           message,
+          /**
+           * Override status message.
+           */
+          statusMessage,
         } = err.payload;
 
         return res.status(err.status).json({
@@ -198,7 +222,7 @@ export default function restErrorHandlerFactory() {
            * The same as HTTP Status Message. 同HTTP Status Message
            * Since status code is not predictable, status message default to an empty string.
            */
-          status: '',
+          status: isNoid(statusMessage) ? '' : statusMessage,
           /**
            * Human readable error message. 人类可读报错信息
            */
