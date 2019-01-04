@@ -127,7 +127,7 @@ export default function restErrorHandlerFactory() {
         });
       }
       /**
-       * HTTP Status Code 404 Not Found. 类型404: 请求不存在
+       * HTTP Status Code 404 Not Found. 类型404: 未找到
        */
       case 404: {
         const {
@@ -150,6 +150,32 @@ export default function restErrorHandlerFactory() {
            * Human readable error message. 人类可读报错信息
            */
           message: isNoid(message) ? 'Not Found' : message,
+        });
+      }
+      /**
+       * HTTP Status Code 500 Internal Server Error. 类型500: 服务器内部错误
+       */
+      case 500: {
+        const {
+          /**
+           * Override error message.
+           */
+          message,
+        } = err.payload;
+
+        return res.status(500).json({
+          /**
+           * The same as HTTP Status Code. 同HTTP Status Code
+           */
+          code: 500,
+          /**
+           * The same as HTTP Status Message. 同HTTP Status Message
+           */
+          status: 'Internal Server Error',
+          /**
+           * Human readable error message. 人类可读报错信息
+           */
+          message: isNoid(message) ? 'Internal Server Error' : message,
         });
       }
       /**

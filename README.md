@@ -1,7 +1,7 @@
 # rest-error-handler
 This project defines error formats of RESTful APIs. By following my guidline, one's APIs will be consistent to RESTful standards. This project is in its very early experimental stage, thus it is highly recommanded not to implement in production.
 
-At the moment only three types of errors have formalised: 400, 401, 403, and 404.
+At the moment only three types of errors have formalised: 400, 401, 403, 404, and 500.
 
 ## Installation
 
