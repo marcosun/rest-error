@@ -178,8 +178,33 @@ export default function restErrorHandlerFactory() {
           message: isNoid(message) ? 'Internal Server Error' : message,
         });
       }
-      default:
-        return next(err);
+      /**
+       * All other errors come into this handler.
+       */
+      default: {
+        const {
+          /**
+           * Override error message.
+           */
+          message,
+        } = err.payload;
+
+        return res.status(err.status).json({
+          /**
+           * The same as HTTP Status Code. 同HTTP Status Code
+           */
+          code: err.status,
+          /**
+           * The same as HTTP Status Message. 同HTTP Status Message
+           * Since status code is not predictable, status message default to an empty string.
+           */
+          status: '',
+          /**
+           * Human readable error message. 人类可读报错信息
+           */
+          message: isNoid(message) ? '' : message,
+        });
+      }
     }
   };
 }
