@@ -127,6 +127,32 @@ export default function restErrorHandlerFactory() {
         });
       }
       /**
+       * HTTP Status Code 404 Not Found. 类型404: 请求不存在
+       */
+      case 404: {
+        const {
+          /**
+           * Override error message.
+           */
+          message,
+        } = err.payload;
+
+        return res.status(404).json({
+          /**
+           * The same as HTTP Status Code. 同HTTP Status Code
+           */
+          code: 404,
+          /**
+           * The same as HTTP Status Message. 同HTTP Status Message
+           */
+          status: 'Not Found',
+          /**
+           * Human readable error message. 人类可读报错信息
+           */
+          message: isNoid(message) ? 'Not Found' : message,
+        });
+      }
+      /**
        * Customised HTTP Status Code 520 Datacenter Error. 类型520: 数据中心崩溃
        * This will deperecate soon.
        */
