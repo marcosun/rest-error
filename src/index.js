@@ -18,14 +18,6 @@ export default function restErrorHandlerFactory() {
       return next(err);
     }
 
-    /**
-     * Initialise payload to an empty object so that properties such that reading field and message
-     * properties from payload won't throw error.
-     */
-    if (err.payload !== Object(err.payload)) {
-      err.payload = {};
-    }
-
     switch (err.status) {
       /**
        * HTTP Status Code 400 Bad Request. 类型400: 请求参数错误
@@ -60,7 +52,7 @@ export default function restErrorHandlerFactory() {
            * Attach all other properties in response body.
            */
           ...other
-        } = err.payload;
+        } = err;
 
         return res.status(400).json({
           /**
@@ -116,7 +108,7 @@ export default function restErrorHandlerFactory() {
            * Attach all other properties in response body.
            */
           ...other
-        } = err.payload;
+        } = err;
 
         return res.status(401).json({
           /**
@@ -159,7 +151,7 @@ export default function restErrorHandlerFactory() {
            * Attach all other properties in response body.
            */
           ...other
-        } = err.payload;
+        } = err;
 
         return res.status(403).json({
           /**
@@ -202,7 +194,7 @@ export default function restErrorHandlerFactory() {
            * Attach all other properties in response body.
            */
           ...other
-        } = err.payload;
+        } = err;
 
         return res.status(404).json({
           /**
@@ -245,7 +237,7 @@ export default function restErrorHandlerFactory() {
            * Attach all other properties in response body.
            */
           ...other
-        } = err.payload;
+        } = err;
 
         return res.status(500).json({
           /**
@@ -288,7 +280,7 @@ export default function restErrorHandlerFactory() {
            * Attach all other properties in response body.
            */
           ...other
-        } = err.payload;
+        } = err;
 
         return res.status(err.status).json({
           /**
