@@ -113,6 +113,36 @@ export default function restErrorHandlerFactory() {
         });
       }
       /**
+       * HTTP Status Code 422 Unprocessable Entity. 类型422: 执行错误
+       */
+      case 422: {
+        const {
+          details = [],
+          /**
+           * Override error message.
+           */
+          message,
+        } = err;
+
+        /**
+         * TODO: validate that details contains { code, field, resource }
+         * and code is one of [ 'already_exists', 'invalid', 'missing', 'missing_field' ]
+         * in none-production environments.
+         */
+
+        return res.status(422).json({
+          /**
+           * Human readable error message. 人类可读报错信息
+           */
+          message,
+          /**
+           * Error details. Containing three properties only: code, field, and resource.
+           * 详细错误信息。只包含三个字端：code, field 和 resource
+           */
+          details,
+        });
+      }
+      /**
        * HTTP Status Code 500 Internal Server Error. 类型500: 服务器内部错误
        */
       case 500: {
