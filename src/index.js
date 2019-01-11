@@ -36,10 +36,6 @@ export default function restErrorHandlerFactory() {
            * Override error message.
            */
           message,
-          /**
-           * Attach all other properties in response body.
-           */
-          ...other
         } = err;
 
         return res.status(400).json({
@@ -60,7 +56,6 @@ export default function restErrorHandlerFactory() {
              */
             message: isNoid(fieldMessage) ? `${field} is invalid` : fieldMessage,
           }],
-          ...other,
         });
       }
       /**
@@ -72,10 +67,6 @@ export default function restErrorHandlerFactory() {
            * Override error message.
            */
           message,
-          /**
-           * Attach all other properties in response body.
-           */
-          ...other
         } = err;
 
         return res.status(401).json({
@@ -83,7 +74,6 @@ export default function restErrorHandlerFactory() {
            * Human readable error message. 人类可读报错信息
            */
           message: isNoid(message) ? 'Invalid credentials' : message,
-          ...other,
         });
       }
       /**
@@ -95,10 +85,6 @@ export default function restErrorHandlerFactory() {
            * Override error message.
            */
           message,
-          /**
-           * Attach all other properties in response body.
-           */
-          ...other
         } = err;
 
         return res.status(403).json({
@@ -106,7 +92,6 @@ export default function restErrorHandlerFactory() {
            * Human readable error message. 人类可读报错信息
            */
           message: isNoid(message) ? 'Insufficient authority' : message,
-          ...other,
         });
       }
       /**
@@ -118,10 +103,6 @@ export default function restErrorHandlerFactory() {
            * Override error message.
            */
           message,
-          /**
-           * Attach all other properties in response body.
-           */
-          ...other
         } = err;
 
         return res.status(404).json({
@@ -129,7 +110,6 @@ export default function restErrorHandlerFactory() {
            * Human readable error message. 人类可读报错信息
            */
           message: isNoid(message) ? 'Not Found' : message,
-          ...other,
         });
       }
       /**
@@ -141,10 +121,6 @@ export default function restErrorHandlerFactory() {
            * Override error message.
            */
           message,
-          /**
-           * Attach all other properties in response body.
-           */
-          ...other
         } = err;
 
         return res.status(500).json({
@@ -152,7 +128,6 @@ export default function restErrorHandlerFactory() {
            * Human readable error message. 人类可读报错信息
            */
           message: isNoid(message) ? 'Internal Server Error' : message,
-          ...other,
         });
       }
       /**
@@ -164,10 +139,6 @@ export default function restErrorHandlerFactory() {
            * Override error message.
            */
           message,
-          /**
-           * Attach all other properties in response body.
-           */
-          ...other
         } = err;
 
         return res.status(err.status).json({
@@ -175,7 +146,6 @@ export default function restErrorHandlerFactory() {
            * Human readable error message. 人类可读报错信息
            */
           message: isNoid(message) ? '' : message,
-          ...other,
         });
       }
     }
