@@ -25,10 +25,6 @@ export default function restErrorHandlerFactory() {
       case 400: {
         const {
           /**
-           * Code property can not be overridden. It must be defined by err.status.
-           */
-          code,
-          /**
            * Define which field is invalid.
            */
           field,
@@ -41,28 +37,12 @@ export default function restErrorHandlerFactory() {
            */
           message,
           /**
-           * Status property is overridden by message property.
-           */
-          status,
-          /**
-           * Override status message.
-           */
-          statusMessage,
-          /**
            * Attach all other properties in response body.
            */
           ...other
         } = err;
 
         return res.status(400).json({
-          /**
-           * The same as HTTP Status Code. 同HTTP Status Code
-           */
-          code: 400,
-          /**
-           * The same as HTTP Status Message. 同HTTP Status Message
-           */
-          status: isNoid(statusMessage) ? 'Bad Request' : statusMessage,
           /**
            * Human readable error message. 人类可读报错信息
            */
@@ -89,21 +69,9 @@ export default function restErrorHandlerFactory() {
       case 401: {
         const {
           /**
-           * Code property can not be overridden. It must be defined by err.status.
-           */
-          code,
-          /**
            * Override error message.
            */
           message,
-          /**
-           * Status property is overridden by message property.
-           */
-          status,
-          /**
-           * Override status message.
-           */
-          statusMessage,
           /**
            * Attach all other properties in response body.
            */
@@ -111,14 +79,6 @@ export default function restErrorHandlerFactory() {
         } = err;
 
         return res.status(401).json({
-          /**
-           * The same as HTTP Status Code. 同HTTP Status Code
-           */
-          code: 401,
-          /**
-           * The same as HTTP Status Message. 同HTTP Status Message
-           */
-          status: isNoid(statusMessage) ? 'Unauthorized' : statusMessage,
           /**
            * Human readable error message. 人类可读报错信息
            */
@@ -132,21 +92,9 @@ export default function restErrorHandlerFactory() {
       case 403: {
         const {
           /**
-           * Code property can not be overridden. It must be defined by err.status.
-           */
-          code,
-          /**
            * Override error message.
            */
           message,
-          /**
-           * Status property is overridden by message property.
-           */
-          status,
-          /**
-           * Override status message.
-           */
-          statusMessage,
           /**
            * Attach all other properties in response body.
            */
@@ -154,14 +102,6 @@ export default function restErrorHandlerFactory() {
         } = err;
 
         return res.status(403).json({
-          /**
-           * The same as HTTP Status Code. 同HTTP Status Code
-           */
-          code: 403,
-          /**
-           * The same as HTTP Status Message. 同HTTP Status Message
-           */
-          status: isNoid(statusMessage) ? 'Forbidden' : statusMessage,
           /**
            * Human readable error message. 人类可读报错信息
            */
@@ -175,21 +115,9 @@ export default function restErrorHandlerFactory() {
       case 404: {
         const {
           /**
-           * Code property can not be overridden. It must be defined by err.status.
-           */
-          code,
-          /**
            * Override error message.
            */
           message,
-          /**
-           * Status property is overridden by message property.
-           */
-          status,
-          /**
-           * Override status message.
-           */
-          statusMessage,
           /**
            * Attach all other properties in response body.
            */
@@ -197,14 +125,6 @@ export default function restErrorHandlerFactory() {
         } = err;
 
         return res.status(404).json({
-          /**
-           * The same as HTTP Status Code. 同HTTP Status Code
-           */
-          code: 404,
-          /**
-           * The same as HTTP Status Message. 同HTTP Status Message
-           */
-          status: isNoid(statusMessage) ? 'Not Found' : statusMessage,
           /**
            * Human readable error message. 人类可读报错信息
            */
@@ -218,21 +138,9 @@ export default function restErrorHandlerFactory() {
       case 500: {
         const {
           /**
-           * Code property can not be overridden. It must be defined by err.status.
-           */
-          code,
-          /**
            * Override error message.
            */
           message,
-          /**
-           * Status property is overridden by message property.
-           */
-          status,
-          /**
-           * Override status message.
-           */
-          statusMessage,
           /**
            * Attach all other properties in response body.
            */
@@ -240,14 +148,6 @@ export default function restErrorHandlerFactory() {
         } = err;
 
         return res.status(500).json({
-          /**
-           * The same as HTTP Status Code. 同HTTP Status Code
-           */
-          code: 500,
-          /**
-           * The same as HTTP Status Message. 同HTTP Status Message
-           */
-          status: isNoid(statusMessage) ? 'Internal Server Error' : statusMessage,
           /**
            * Human readable error message. 人类可读报错信息
            */
@@ -261,21 +161,9 @@ export default function restErrorHandlerFactory() {
       default: {
         const {
           /**
-           * Code property can not be overridden. It must be defined by err.status.
-           */
-          code,
-          /**
            * Override error message.
            */
           message,
-          /**
-           * Status property is overridden by message property.
-           */
-          status,
-          /**
-           * Override status message.
-           */
-          statusMessage,
           /**
            * Attach all other properties in response body.
            */
@@ -283,15 +171,6 @@ export default function restErrorHandlerFactory() {
         } = err;
 
         return res.status(err.status).json({
-          /**
-           * The same as HTTP Status Code. 同HTTP Status Code
-           */
-          code: err.status,
-          /**
-           * The same as HTTP Status Message. 同HTTP Status Message
-           * Since status code is not predictable, status message default to an empty string.
-           */
-          status: isNoid(statusMessage) ? '' : statusMessage,
           /**
            * Human readable error message. 人类可读报错信息
            */
