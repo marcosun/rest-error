@@ -1,4 +1,8 @@
+import invariant from 'invariant';
+import { oneLine } from 'common-tags';
 import isNoid from './utils/isNoid';
+
+const NODE_ENV = process.env.NODE_ENV;
 
 /**
  * Return rest error handler factory.
@@ -124,11 +128,44 @@ export default function restErrorHandlerFactory() {
           message,
         } = err;
 
-        /**
-         * TODO: validate that details contains { code, field, resource }
-         * and code is one of [ 'already_exists', 'invalid', 'missing', 'missing_field' ]
-         * in none-production environments.
-         */
+        if (NODE_ENV !== 'production') {
+          /**
+           * Must define error details property.
+           */
+          invariant(details.length === 0, 'Error details must be defined.');
+
+          /**
+           * Error details property has strict validation rules.
+           */
+          details.forEach(({ code, field, resource }) => {
+            /**
+             * validate that details property contains { code, field, resource }.
+             */
+            invariant(isNoid(code), 'Error details.code is missing.');
+            invariant(isNoid(field), 'Error details.field is missing.');
+            invariant(isNoid(resource), 'Error details.resource is missing.');
+
+            /**
+             * already_exists:
+             * This means another resource has the same value as this field.
+             * This can happen in resources that must have some unique key (such as Label names).
+             * invalid:
+             * This means the formatting of a field is invalid. The documentation for that resource
+             * should be able to give you more specific information.
+             * missing:
+             * This means a resource does not exist.
+             * missing_field:
+             * This means a required field on a resource has not been set.
+             */
+            invariant(
+              !['already_exists', 'invalid', 'missing', 'missing_field'].includes(code),
+              oneLine`
+                Received details.code: ${code}.
+                It must be one of ['already_exists', 'invalid', 'missing', 'missing_field'].
+              `,
+            );
+          });
+        }
 
         return res.status(422).json({
           /**
@@ -136,7 +173,7 @@ export default function restErrorHandlerFactory() {
            */
           message,
           /**
-           * Error details. Containing three properties only: code, field, and resource.
+           * Error details. Containing three properties only: { code, field, resource }.
            * 详细错误信息。只包含三个字端：code, field 和 resource
            */
           details,

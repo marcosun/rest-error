@@ -16,6 +16,7 @@
   "author": "marcosun <marcoinbristol@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "common-tags": "^1.8.0",
     "invariant": "^2.2.4"
   },
   "devDependencies": {
