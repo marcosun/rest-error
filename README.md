@@ -1,7 +1,7 @@
 # rest-error-handler
-This project defines error formats of RESTful APIs. By following my guidline, one's APIs will be consistent to RESTful standards. This project is in its very early experimental stage, thus it is highly recommanded not to implement in production.
+This project defines error formats of RESTful APIs. By following my guideline, one's APIs will be consistent to RESTful standards. This project is in its very early experimental stage, thus it is highly recommended not to implement in production.
 
-At the moment only three types of errors have formalised: 400, 401, 403, 404, and 500.
+At the moment only three types of errors have formalised: 401, 403, 404, 422 and 500.
 
 ## Installation
 
@@ -28,7 +28,7 @@ app.get('/login', login);
 app.use(restErrorHandler());
 ```
 
-### Step Two: Create an error instance with status code and payload
+### Step Two: Create an error instance with status code and other configurable properties.
 
 ```javascript
 // login.js
@@ -38,11 +38,13 @@ export default function(req, res, next) {
     } = req.query;
     
     if (username === void 0) {
-        const err = new Error('Bad Request');
-        err.status = 400; // HTTP status code 400
-        err.payload = {
+        const err = new Error('Unprocessable Entity');
+        err.status = 422; // HTTP status code 422
+        err.details = [{
+            code: 'invalid',
             field: 'username', // Declare which field is required
-        };
+            resource: 'Login',
+        }];
         return next(err);
     }
     
