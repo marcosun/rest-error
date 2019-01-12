@@ -132,7 +132,7 @@ export default function restErrorHandlerFactory() {
           /**
            * Must define error details property.
            */
-          invariant(details.length === 0, 'Error details must be defined.');
+          invariant(details.length !== 0, 'Error details must be defined.');
 
           /**
            * Error details property has strict validation rules.
@@ -141,9 +141,9 @@ export default function restErrorHandlerFactory() {
             /**
              * validate that details property contains { code, field, resource }.
              */
-            invariant(isNoid(code), 'Error details.code is missing.');
-            invariant(isNoid(field), 'Error details.field is missing.');
-            invariant(isNoid(resource), 'Error details.resource is missing.');
+            invariant(!isNoid(code), 'Error details.code is missing.');
+            invariant(!isNoid(field), 'Error details.field is missing.');
+            invariant(!isNoid(resource), 'Error details.resource is missing.');
 
             /**
              * already_exists:
@@ -158,7 +158,7 @@ export default function restErrorHandlerFactory() {
              * This means a required field on a resource has not been set.
              */
             invariant(
-              !['already_exists', 'invalid', 'missing', 'missing_field'].includes(code),
+              ['already_exists', 'invalid', 'missing', 'missing_field'].includes(code),
               oneLine`
                 Received details.code: ${code}.
                 It must be one of ['already_exists', 'invalid', 'missing', 'missing_field'].
