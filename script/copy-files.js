@@ -18,7 +18,7 @@ async function copyFile(file) {
   try {
     await fse.copy(file, buildPath);
     console.log(`${file} OK!`);
-  } catch(e) {
+  } catch (e) {
     console.error(`${file} FAILED!!!`);
   }
 }
@@ -29,8 +29,8 @@ async function createPackageFile() {
 
   const newPackageData = {
     ...packageDataOther,
-    main: './index.js',
-    module: './index.es.js',
+    main: './lib/index.js',
+    module: './es/index.es.js',
   };
 
   let buildPath;
