@@ -1,6 +1,7 @@
 import invariant from 'invariant';
 import { oneLine } from 'common-tags';
 import isNoid from './utils/isNoid';
+import { NextFunction } from 'express';
 
 const NODE_ENV = process.env.NODE_ENV;
 
@@ -10,7 +11,7 @@ const NODE_ENV = process.env.NODE_ENV;
  * This is a standard Connect error middleware.
  */
 export default function restErrorHandlerFactory() {
-  return function restErrorHandler(err, req, res, next) {
+  return function restErrorHandler(err: any, _req: any, res: any, next: NextFunction) {
     /**
      * Delegate to the default error handling mechanisms in Express,
      * when the headers have already been sent to the client.
@@ -40,6 +41,10 @@ export default function restErrorHandlerFactory() {
            * Override error message.
            */
           message,
+        }: {
+          field: string;
+          fieldMessage: string;
+          message: string;
         } = err;
 
         return res.status(400).json({
@@ -71,6 +76,8 @@ export default function restErrorHandlerFactory() {
            * Override error message.
            */
           message,
+        }: {
+          message: string;
         } = err;
 
         return res.status(401).json({
@@ -89,6 +96,8 @@ export default function restErrorHandlerFactory() {
            * Override error message.
            */
           message,
+        }: {
+          message: string;
         } = err;
 
         return res.status(403).json({
@@ -107,6 +116,8 @@ export default function restErrorHandlerFactory() {
            * Override error message.
            */
           message,
+        }: {
+          message: string;
         } = err;
 
         return res.status(404).json({
@@ -126,6 +137,13 @@ export default function restErrorHandlerFactory() {
            * Override error message.
            */
           message,
+        }: {
+          details: {
+            code: 'already_exists' | 'invalid' | 'missing' | 'missing_field';
+            field: string;
+            resource: string;
+          }[];
+          message: string;
         } = err;
 
         if (NODE_ENV !== 'production') {
@@ -188,6 +206,8 @@ export default function restErrorHandlerFactory() {
            * Override error message.
            */
           message,
+        }: {
+          message: string;
         } = err;
 
         return res.status(500).json({
@@ -206,6 +226,8 @@ export default function restErrorHandlerFactory() {
            * Override error message.
            */
           message,
+        }: {
+          message: string;
         } = err;
 
         return res.status(err.status).json({
